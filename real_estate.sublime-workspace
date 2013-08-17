@@ -1,0 +1,463 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"addres",
+				"addresses"
+			],
+			[
+				"for",
+				"for_sale"
+			],
+			[
+				"for_sale",
+				"for_sale_by_owner"
+			],
+			[
+				"valuat",
+				"valuation_low"
+			],
+			[
+				"pro",
+				"processed_address"
+			],
+			[
+				"opt",
+				"opt_states"
+			],
+			[
+				"back",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<?php\nrequire_once 'libs/libs.php';\n\nif (isset($_GET['page']) && (!empty($_GET['page']))) {\n    $page = $_GET['page'];\n} else {\n    $page = '/for_sale/Ajo,AZ/';\n}\n\n//echo \"City,State: \" .  rtrim(str_replace('/for_sale/', '', $page), '/') . \"<br>\";\n\n$html = file_get_html('http://www.trulia.com' . $page);\n$listing = $html->find('.propertyList');\n\n$page_list = $html->find('.srpPagination_list', 0);\n$raw_page_list = trim($page_list->innertext);\n\n//$page_list->find('a', 0)->href = $_SERVER['PHP_SELF'] . '?page=' . $page_list->find('a', 0)->href;\necho $page_list . \"<br>\";\n\n$page_link = $html->find('.srpPagination_list a');\necho \"Page: \";\nforeach ($page_link as $link) {\n    //$raw_page_link = trim($page_link->href);\n    $link->href = $_SERVER['PHP_SELF'] . '?page=' . $link->href;\n    echo $link . \" \";\n}\necho \"<br/>\";\n\n$page_range = $html->find('.srpPaginationRange', 0);\necho \"Total: \" . $raw_page_range = trim($page_range->innertext) . \"<br>\";\n\necho \"<pre>\";\nforeach ($listing[0]->children() as $row) {\n    //$row->find('.mediaBody')[0]->innertext;\n    foreach ($row->find('.cardBody')[0]->children() as $data) {\n\n        $thumbnail = $data->find('.overlayContainer img', 0);\n        if (!empty($thumbnail->attr['data-lazy-src'])) {\n            $raw_thumbnail = trim($thumbnail->attr['data-lazy-src']);\n            //echo \"Thumbnail: \" . $raw_thumbnail . \"<br>\";\n            echo \"<img src='\". $raw_thumbnail . \"' width='150' />\" . \"<br>\";\n        }\n\n        //address property\n        $address = $data->find('.primaryLink strong', 0);\n        if (!empty($address->innertext)) {\n            $raw_address = trim($address->innertext);\n            echo \"Address: \" . $raw_address . \"<br>\";\n        }\n\n        $price = $data->find('.txtR strong', 0);\n        if (!empty($price->innertext)) {\n            $raw_price = trim(str_replace('<i class=\"iconDown\"></i>', '', $price->innertext));\n            echo \"Price: \" . $raw_price . \"<br>\";\n        }\n\n        $mortgage_estimate = $data->find('.mortgageEstimate', 0);\n        //var_dump($mortgage_estimate->innertext);\n        if (!empty($mortgage_estimate->innertext)) {\n            $raw_mortgage_estimate = trim($mortgage_estimate->innertext);\n            echo \"Mortgate Est: \" . $raw_mortgage_estimate . \"<br>\";\n        }\n\n        $type = $data->find('.cols9 strong', 0);\n        if (!empty($type->innertext)) {\n            $raw_type = trim($type->innertext);\n            echo \"Type: \" . $raw_type . \"<br>\";\n        }\n\n        $sqft = $data->find('.cols9 .mvn', 0);\n        if (!empty($sqft->innertext)) {\n            $raw_sqft = trim($sqft->innertext);\n            echo \"Sqft: \" . $raw_sqft . \"<br>\";\n        }\n\n        $beds = $data->find('.cols4 strong', 0);\n        if (!empty($beds->innertext)) {\n            $raw_beds = trim($beds->innertext);\n            echo \"Beds: \" . $raw_beds . \"<br>\";\n        }\n\n        $baths = $data->find('.cols4 .mvn', 0);\n        if (!empty($baths->innertext)) {\n            $raw_baths = trim($baths->innertext);\n            echo \"Baths: \" . $raw_baths . \"<br>\";\n        }\n\n        $city_state_zip = $data->find('.cols6 .h7', 0);\n        if (!empty($city_state_zip->innertext)) {\n            $raw_city_state_zip = trim($city_state_zip->innertext);\n            echo \"City State Zip: \" . $raw_city_state_zip . \"<br>\";\n        }\n\n        echo \"<br>\";\n\n\n    }\n\n}\n\n\n",
+			"file": "/D/xampp/htdocs/sandbox/zillow/parser.php",
+			"file_size": 3449,
+			"file_write_time": 130211771042168053,
+			"settings":
+			{
+				"buffer_size": 3347,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"syn twi",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"syn php",
+				"Set Syntax: PHP"
+			],
+			[
+				"synxml",
+				"Set Syntax: XML"
+			],
+			[
+				"synhtm",
+				"Set Syntax: HTML"
+			],
+			[
+				"syn htm",
+				"Set Syntax: HTML"
+			],
+			[
+				"syn html",
+				"Set Syntax: HTML"
+			],
+			[
+				"syn ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTA",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/xampp/htdocs/sandbox/zillow/index.php",
+		"/D/xampp/htdocs/sandbox/zillow/js/zillow.js",
+		"/D/xampp/htdocs/sandbox/zillow/libs/libs.php",
+		"/D/xampp/htdocs/sandbox/zillow/libs/Zillow.php",
+		"/D/xampp/htdocs/sandbox/zillow/az_cities.php",
+		"/D/xampp/htdocs/sandbox/zillow/Zillow.php",
+		"/D/xampp/htdocs/sandbox/trulia/web/views/index.twig",
+		"/D/xampp/htdocs/sandbox/trulia/vendor/ownp/RealEstate/Trulia/Trulia.php",
+		"/D/xampp/htdocs/sandbox/trulia/web/index.php",
+		"/D/xampp/htdocs/sandbox/trulia/web/.htaccess",
+		"/D/xampp/htdocs/sandbox/zillow/xml.az_cities.xml",
+		"/D/xampp/htdocs/sandbox/zillow/phpinfo.php",
+		"/D/xampp/htdocs/sandbox/zillow/.htaccess",
+		"/D/xampp/htdocs/sandbox/zillow/all.states_addresses_formatted_html.txt",
+		"/D/xampp/htdocs/sandbox/zillow/ca.state.txt",
+		"/D/xampp/htdocs/sandbox/zillow/all.states_addresses_formatted.txt",
+		"/D/xampp/htdocs/sandbox/zillow/all.states_addresses.txt",
+		"/D/xampp/htdocs/sandbox/zillow/controller.php",
+		"/D/tools/Sublime Text 2.0.2 x64/Data/Packages/User/Preferences.sublime-settings",
+		"/D/Dropbox/adgent/npm.error.log.txt",
+		"/C/Users/Admin/Desktop/test.html",
+		"/C/Users/Admin/Desktop/acta_aug_2013/acta-aug-2013.txt",
+		"/C/Users/Admin/Downloads/silex_fat/silex/web/index.php",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/sftp-config.json",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/default/settings.php",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/themes/tweme/assets/css/technousers.css",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/themes/tweme/onin.tweme.notes",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/themes/tweme/tweme.info",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/themes/tweme/template.php",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/default/default.settings.php",
+		"/D/xampp/htdocs/sandbox/technousers.com/public_html/sites/all/test.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/Mouse.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/Product.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/Keyboard.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/ShoppingCart.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/ProductFactory.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory/explanation.txt",
+		"/D/xampp/htdocs/sandbox/patterns/factory/factory.pattern.php",
+		"/D/xampp/htdocs/sandbox/patterns/factory.pattern.php",
+		"/D/xampp/htdocs/sandbox/learning-symfony2/app/Resources/views/base.html.twig",
+		"/D/tools/Sublime Text 2.0.2 x64/Data/Packages/Default/Preferences.sublime-settings",
+		"/D/xampp/htdocs/sandbox/learning-symfony2/src/Acme/HelloBundle/Resources/views/Hello/index.html.twig",
+		"/D/xampp/htdocs/sandbox/learning-symfony2/app/AppKernel.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Address",
+			"address",
+			"sqft",
+			"name",
+			"()->",
+			"2nd",
+			"2nd ave",
+			"<li>",
+			"</li>",
+			"();",
+			"()",
+			"Village",
+			"central",
+			"</latitude>",
+			"<latitude>",
+			"'longitude' => ",
+			"=> ",
+			"</longitude>",
+			"<longitude>",
+			"</name>",
+			"</city>",
+			"<city>",
+			"\n<",
+			"cityId",
+			"<cityId>",
+			"<stateCode>",
+			"id=\"states",
+			"states-free",
+			"=\"\">",
+			"amount",
+			"states",
+			"search",
+			"addresses",
+			"zillow.js",
+			">\n",
+			"<option value=\"",
+			" \">",
+			"AZ",
+			"<option value",
+			"AL ",
+			"</option>",
+			"\">",
+			"95961",
+			"\">",
+			" \n",
+			"\">",
+			"</option>",
+			"value=\"\"",
+			"value\"",
+			"value=\">",
+			"\">",
+			"</option>",
+			"hidden_addresses",
+			"\">",
+			"\"8\"",
+			"\"7\"",
+			"\"6\"",
+			"\"5\"",
+			"5",
+			"\"4\"",
+			"\"3\"",
+			"\"2\"",
+			"\"1\"",
+			">",
+			"'",
+			"<option",
+			"<select id=\"address_list\" class=\"inputText\" onchange=\"set_center()\">",
+			"</select>",
+			"</option>",
+			"AL",
+			"state",
+			"</option>",
+			"\">Click here to download Full Text</a>",
+			"/sites/",
+			"/sites/default/files/fulltexts/vol_7_no_2_a_case_of_noonan.pdf\n/sites/default/files/fulltexts/vol_7_no_2_a_post_marketing.pdf\n/sites/default/files/fulltexts/vol_7_no_2_auto_lpg.pdf\n/sites/default/files/fulltexts/vol_7_no_2_biomarker_detection.pdf\n/sites/default/files/fulltexts/vol_7_no_2_correlation_of_performance.pdf\n/sites/default/files/fulltexts/vol_7_no_2_factors_associated.pdf\n/sites/default/files/fulltexts/vol_7_no_2_field_testing.pdf\n/sites/default/files/fulltexts/vol_7_no_2_knowledge_and_practices.pdf\n/sites/default/files/fulltexts/vol_7_no_2_lessons_from_implementing.pdf\n/sites/default/files/fulltexts/vol_7_no_2_quality_of_life.pdf\n/sites/default/files/fulltexts/vol_7_no_2_the_use_of_steroids.pdf",
+			"vergilio",
+			"driver",
+			"sqlite",
+			"space",
+			"indent",
+			"}"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/D/xampp/htdocs/sandbox/zillow/parser.php",
+					"settings":
+					{
+						"buffer_size": 3347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2619,
+								2620
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 632.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 203.0,
+	"status_bar_visible": true
+}
